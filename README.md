@@ -19,19 +19,25 @@ This is a Laravel + Livewire project that includes the following features:
 ## Installation Instructions
 1. Install Dependencies
    Run the following command to install the PHP dependencies using Composer:
+   ```bash
    composer install
 
 2. Install Livewire v3 using Composer:
-composer require livewire/livewire:^3.0
+   ```bash
+   composer require livewire/livewire:^3.0
 
 4. Install the Node.js dependencies using npm:
-npm install
+   ```bash
+   npm install
 5. Generate the application key:
-php artisan key:generate
+   ```bash
+   php artisan key:generate
 6. Run Database Migrations
+   ```bash
    php artisan migrate
 7. Serve the Application
- php artisan serve
+   ```bash
+   php artisan serve
 ## Set Up Environment Variables
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
