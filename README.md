@@ -1,6 +1,6 @@
 # My Laravel + Livewire Project
 
-This is a Laravel + Livewire project that includes the following features:
+This is a Laravel + Livewire + Alpinejs project that includes the following features:
 
 ## Features
 
