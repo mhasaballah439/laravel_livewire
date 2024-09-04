@@ -8,6 +8,7 @@ This is a Laravel + Livewire + Alpinejs project that includes the following feat
 - **Admin Management**: Manage admins and their permissions
 - **Permissions Group**: Assign and manage permission groups
 - **Layouts**: Dynamic and responsive layouts
+- **Languages** Switch between languages (AR,EN)
 
 ## Requirements
 
