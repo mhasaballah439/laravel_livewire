@@ -38,13 +38,14 @@ This is a Laravel + Livewire project that includes the following features:
    ```bash
    php artisan serve
 ## Set Up Environment Variables
+```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravel_basic
 DB_USERNAME=
 DB_PASSWORD=
-
+```
 ### 1. Clone the Repository
 
 First, clone the repository to your local machine:
