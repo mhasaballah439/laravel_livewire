@@ -13,7 +13,6 @@ This is a Laravel + Livewire project that includes the following features:
 
 - **PHP**: Version 8.1 or higher
 - **Composer**: Version 2.7.2 or higher
-- **Node.js** (with npm)
 - **MySQL** or any other database supported by Laravel
 
 ## Installation Instructions
