@@ -502,5 +502,6 @@
 <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" type="text/css">
 @endpush
 @push('scripts')
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 @endpush

@@ -689,7 +689,6 @@
         toastr.error(message);
     });
 
-
 </script>
 
 @endscript

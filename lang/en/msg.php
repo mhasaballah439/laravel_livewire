@@ -85,7 +85,7 @@ return [
     'Messages' => 'Messages',
     'Taskboard' => 'Taskboard',
     'Settings' => 'Settings',
-    '' => '',
+    'dont_have_permitions_msg' => 'You dont have permition to access requested link',
     '' => '',
     '' => '',
     '' => '',

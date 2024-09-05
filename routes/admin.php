@@ -9,6 +9,7 @@ use App\Livewire\Dashboard\Auth\AuthLogin;
 use App\Livewire\Dashboard\Auth\ResetPassword;
 use App\Livewire\Dashboard\Auth\SuccessLogin;
 use App\Livewire\Dashboard\Dashboard;
+use App\Livewire\Dashboard\Pages\PermitionAllow;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\App;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::group(['prefix' => 'dashboard','middleware' => 'auth:admin'],function (){
+Route::middleware(['checkAdminPermition','auth:admin'])->prefix('dashboard')->group(function (){
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/success-login', SuccessLogin::class)->name('dashboard.success_login');
     Route::get('/admins', Admins::class)->name('dashboard.admins');
@@ -31,11 +32,12 @@ Route::group(['prefix' => 'dashboard','middleware' => 'auth:admin'],function (){
     Route::get('/messages', Messages::class)->name('dashboard.messages');
 });
 
+
 Route::group(['prefix' => 'dashboard','middleware' => 'checkAdminLogin'],function (){
     Route::get('/login', AuthLogin::class)->name('dashboard.auth.login');
     Route::get('/reset-password', ResetPassword::class)->name('dashboard.auth.reset_password');
 });
-
+Route::get('/permition-denide', PermitionAllow::class)->name('dashboard.permition_denide');
 
 Route::get('/change-local/{lang}',function ($lang){
     if (!in_array($lang, ['en', 'ar'])) {
