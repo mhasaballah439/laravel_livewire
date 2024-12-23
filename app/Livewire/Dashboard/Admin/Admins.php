@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard\Admin;
 
 use App\Models\Admin;
 use App\Models\PermitionGroup;
+use Exception;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
@@ -19,7 +20,7 @@ class Admins extends Component
 
     public $search = '';
     public $activeTab = 'border-navs-all';
-
+    public $modalId = '';
 
     public function switchTab($tab)
     {
@@ -48,13 +49,13 @@ class Admins extends Component
     public function createItem()
     {
         $this->resetFields();
-
-        $this->dispatch('create-item');
+        $this->modalId = 'addItemModal';
+        $this->dispatch('open-modal', modalId: $this->modalId);
     }
 
-    public function close()
+    public function close($msg)
     {
-        $this->dispatch('close');
+        $this->dispatch('close',message: $msg,modalId: $this->modalId);
     }
 
     public function storeItem()
@@ -83,11 +84,11 @@ class Admins extends Component
                    upload_file($img, 'App\Models\Admin', $admin->id);
                endif;
             $this->resetFields();
-            $this->close();
+            $this->close('تم اضافة المسؤول بنجاح');
 
         } catch (Exception $e) {
             // Error response
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+            $this->dispatch('catch-error', message:$e->getMessage());
         }
 
 
@@ -102,13 +103,15 @@ class Admins extends Component
             $this->username = $admin->username;
             $this->phone = $admin->phone;
             $this->permition_group_id = $admin->permition_group_id;
-            $this->active = $admin->active;
-            $this->is_super = $admin->is_super;
+            $this->active = $admin->active == 1 ? true : false;
+            $this->is_super = $admin->is_super == 1 ? true : false;
             $this->imagePath = isset($admin->image) ? asset($admin->image->file_path) : '';
             $this->image = '';
             $this->item_id = $admin->id;
 
-            $this->dispatch('edit-item');
+            $this->modalId = 'editItemModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -140,8 +143,8 @@ class Admins extends Component
                 upload_file($img, 'App\Models\Admin', $admin->id);
             endif;
 
-            $this->resetFields();
-            $this->close();
+
+            $this->close('تم تعديل بيانات المسؤول بنجاح');
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -153,7 +156,9 @@ class Admins extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('delete-confirmation-item');
+            $this->modalId = 'deleteConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -166,7 +171,7 @@ class Admins extends Component
         try {
             $admin->delete();
 
-            $this->close();
+            $this->close('تم حذف المسؤول بنجاح');
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -178,7 +183,9 @@ class Admins extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('restore-confirmation-item');
+            $this->modalId = 'restoreConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -191,7 +198,7 @@ class Admins extends Component
         try {
             $admin->restore();
 
-            $this->close();
+            $this->close('تم استعادة المسؤول بنجاح');
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -203,7 +210,9 @@ class Admins extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('force-delete-confirmation-item');
+            $this->modalId = 'forceDeleteConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -216,7 +225,7 @@ class Admins extends Component
         try {
             $admin->forceDelete();
 
-            $this->close();
+            $this->close('تم حذف المسؤول بشكل نهائي');
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());

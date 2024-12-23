@@ -24,6 +24,8 @@ class PermitionGroups extends Component
 
     public $activeTab = 'border-navs-all';
 
+    public $modalId = '';
+
     public function switchTab($tab)
     {
         $this->activeTab = $tab;
@@ -45,12 +47,13 @@ class PermitionGroups extends Component
     {
         $this->resetFields();
 
-        $this->dispatch('create-item');
+        $this->modalId = 'addItemModal';
+        $this->dispatch('open-modal', modalId: $this->modalId);
     }
 
-    public function close()
+    public function close($msg)
     {
-        $this->dispatch('close');
+        $this->dispatch('close',['message' => $msg,'modalId' => $this->modalId]);
     }
 
     public function storeItem()
@@ -66,7 +69,7 @@ class PermitionGroups extends Component
             $group->save();
 
             $this->resetFields();
-            $this->close();
+            $this->close(__('msg.data_stored_successfully'));
 
         } catch (Exception $e) {
             // Error response
@@ -85,7 +88,9 @@ class PermitionGroups extends Component
             $this->links = json_decode($group->links);
             $this->item_id = $group->id;
 
-            $this->dispatch('edit-item');
+            $this->modalId = 'editItemModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -105,7 +110,7 @@ class PermitionGroups extends Component
           $group->save();
 
           $this->resetFields();
-          $this->close();
+          $this->close(__('msg.data_updated_successfully'));
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -117,7 +122,9 @@ class PermitionGroups extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('delete-confirmation-item');
+            $this->modalId = 'deleteConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -130,7 +137,7 @@ class PermitionGroups extends Component
         try {
             $group->delete();
 
-            $this->close();
+            $this->close(__('msg.data_deleted_successfully'));
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -142,7 +149,9 @@ class PermitionGroups extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('restore-confirmation-item');
+            $this->modalId = 'restoreConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -155,7 +164,7 @@ class PermitionGroups extends Component
         try {
             $group->restore();
 
-            $this->close();
+            $this->close(__('msg.data_restored_successfully'));
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -167,7 +176,9 @@ class PermitionGroups extends Component
         try {
             $this->item_id = $id;
 
-            $this->dispatch('force-delete-confirmation-item');
+            $this->modalId = 'forceDeleteConfrmationModal';
+
+            $this->dispatch('open-modal', modalId: $this->modalId);
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());
@@ -180,7 +191,7 @@ class PermitionGroups extends Component
         try {
             $group->forceDelete();
 
-            $this->close();
+            $this->close(__('msg.data_force_deleted_successfully'));
         } catch (Exception $e) {
 
             $this->dispatch('catch-error', message:$e->getMessage());

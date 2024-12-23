@@ -129,9 +129,13 @@ return [
 
     'navigate' => [
         'show_progress_bar' => true,
-        'progress_bar_color' => '#2299dd',
+        'progress_bar_color' => '#ef554a',
     ],
 
+    'chunk_uploads' => [
+        'enabled' => true,
+        'chunk_size' => 1024 * 1024, // حجم القطعة الواحدة بالبايت (1 ميغابايت هنا)
+    ],
     /*
     |---------------------------------------------------------------------------
     | HTML Morph Markers

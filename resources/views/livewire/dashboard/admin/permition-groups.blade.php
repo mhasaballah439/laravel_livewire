@@ -435,73 +435,29 @@
 </div>
 @script
 <script>
-    $wire.on('close', () => {
-        $('#addItemModal').modal('hide');
-        $('#editItemModal').modal('hide');
-        $('#deleteConfrmationModal').modal('hide');
-        $('#restoreConfrmationModal').modal('hide');
-        $('#forceDeleteConfrmationModal').modal('hide');
+    $wire.on('close', (data) => {
+        var itemModal = document.getElementById(data.modalId)
+        var modal = bootstrap.Modal.getInstance(itemModal)
+        modal.hide();
+        Toastify({
+            text: "تمت العملية بنجاح",
+            position: "center",
+            close: true,
+        }).showToast();
+    });
+    $wire.on('open-modal', (data) => {
+        var modal = new bootstrap.Modal(document.getElementById(data.modalId)).show();
+    });
 
-        toastr.options = {
-            "closeButton": true,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-        toastr.success('تمت العملية بنجاح');
-    });
-    $wire.on('create-item', () => {
-        $('#addItemModal').modal('show');
-    });
-    $wire.on('edit-item', () => {
-        $('#editItemModal').modal('show');
-    });
-    $wire.on('delete-confirmation-item', () => {
-        $('#deleteConfrmationModal').modal('show');
-    });
-    $wire.on('restore-confirmation-item', () => {
-        $('#restoreConfrmationModal').modal('show');
-    });
-    $wire.on('force-delete-confirmation-item', () => {
-        $('#forceDeleteConfrmationModal').modal('show');
-    });
-    $wire.on('catch-error', (message) => {
-        toastr.options = {
-            "closeButton": true,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-        toastr.error(message);
+    $wire.on('catch-error', (data) => {
+        Toastify({
+            text: data.message,
+            position: "center",
+            close: true,
+            style: {
+                background: "#ff2d2d",
+            }
+        }).showToast();
     });
 </script>
 @endscript
-@push('styles')
-<link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" type="text/css">
-@endpush
-@push('scripts')
-    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
-    <script src="{{asset('assets/js/toastr.min.js')}}"></script>
-@endpush

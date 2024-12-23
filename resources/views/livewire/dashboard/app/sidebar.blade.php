@@ -50,7 +50,8 @@
                                             @foreach($link->sub_links as $sub)
                                                 @if(checkPermition($sub->id) == 1)
                                                     <li class="nav-item">
-                                                        <a href="{{route($sub->route_name)}}" wire:navigate
+                                                        <a href="{{route($sub->route_name)}}"
+                                                           wire:navigate
                                                            class="nav-link {{Route::is($sub->route_name) ? 'active' : ''}}"
                                                            data-key="t-analytics"> {{$sub->name}} </a>
                                                     </li>
@@ -64,7 +65,7 @@
                                 @if(checkPermition($link->id) == 1)
                                     <li class="nav-item">
                                         <a class="nav-link menu-link {{Route::is($link->route_name) ? 'active' : ''}}"
-                                           wire:navigate href="{{route($link->route_name)}}">
+                                           href="{{route($link->route_name)}}" wire:navigate>
                                             <i class="{{$link->icon}}"></i> <span
                                                 data-key="t-widgets">{{$link->name}}</span>
                                         </a>

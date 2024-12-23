@@ -62,7 +62,7 @@
 
                 <div class="dropdown ms-1 topbar-head-dropdown header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="header-lang-img"
+                        <img
                              src="{{\Illuminate\Support\Facades\App::currentLocale() == 'en' ? asset('assets/images/flags/us.svg') : asset('assets/images/flags/sa.png')}}"
                              alt="Header Language" height="20" class="rounded">
                     </button>

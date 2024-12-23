@@ -7,8 +7,9 @@
 
                     <div class="card-header" style="display: flex;align-items: center;justify-content: space-between;">
                         <h5 class="card-title mb-0">{{__('msg.admins')}}</h5>
-                        <button wire:click="createItem" class="btn rounded-pill btn-primary waves-effect waves-light"
-                        >{{__('msg.create')}}
+                        <button wire:click="createItem"
+                                class="btn rounded-pill btn-primary waves-effect waves-light la la-plus"
+                        >
                         </button>
                     </div>
 
@@ -212,37 +213,27 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-3 col-md-6">
-                                                        <div>
-                                                            <label for="iconInput"
-                                                                   class="form-label">{{__('msg.active')}}</label>
-                                                            <select class="form-control" wire:model="active"
-                                                                    @error('active') is-invalid @enderror
-                                                                    id="active">
-                                                                <option value="0">{{__('msg.no')}}</option>
-                                                                <option value="1">{{__('msg.yes')}}</option>
-                                                            </select>
-                                                            @error('active')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                        <label for="active">{{__('msg.active')}}</label>
+                                                        <div class="form-check form-switch text-center">
+                                                            <input class="form-check-input" wire:model="active"
+                                                                   type="checkbox" role="switch"
+                                                                   id="active">
                                                         </div>
                                                     </div>
 
-                                                    <div class="row mt-4" x-data="{ isSuper: @entangle('is_super') }" x-init="$watch('isSuper', value => { isSuper = value })">
+                                                    <div class="row mt-4"
+                                                         x-data="{ isSuper: @entangle('is_super').live }">
                                                         <div class="col-xxl-3 col-md-6">
-                                                            <div>
-                                                                <label for="iconInput" class="form-label">{{ __('msg.is_super') }}</label>
-                                                                <select class="form-control" wire:model="is_super"
-                                                                        @change="isSuper = $event.target.value"
-                                                                        id="is_super">
-                                                                    <option value="0">{{ __('msg.no') }}</option>
-                                                                    <option value="1">{{ __('msg.yes') }}</option>
-                                                                </select>
-                                                                @error('is_super')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
+                                                            <label for="is_super">{{__('msg.is_super')}}</label>
+                                                            <div class="form-check form-switch text-center">
+                                                                <input class="form-check-input" wire:model="is_super"
+                                                                       @change="isSuper = $event.target.checked ? 1 : 0"
+                                                                       type="checkbox" role="switch"
+                                                                       id="is_super">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xxl-3 col-md-6" x-show="isSuper != 1">
+
+                                                        <div class="col-xxl-3 col-md-6" x-show="isSuper == 0" x-cloak>
                                                             <div>
                                                                 <label for="iconInput"
                                                                        class="form-label">{{__('msg.permition_group')}}</label>
@@ -256,10 +247,12 @@
                                                                             });
                                                                         })" id="choices-select">
                                                                     <option value="">{{__('msg.select_permition_group')}}</option>
-                                                                    @foreach($permissions as $permission)
-                                                                        <option
-                                                                            value="{{ $permission->id}}">{{ $permission->name }}</option>
-                                                                    @endforeach
+                                                                    @if($permissions && count($permissions) > 0)
+                                                                        @foreach($permissions as $permission)
+                                                                            <option
+                                                                                value="{{ $permission->id}}">{{ $permission->name }}</option>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -395,36 +388,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xxl-3 col-md-6">
-                                                        <div>
-                                                            <label for="iconInput"
-                                                                   class="form-label">{{__('msg.active')}}</label>
-                                                            <select class="form-control" wire:model="active"
-                                                                    @error('active') is-invalid @enderror
-                                                                    id="active">
-                                                                <option value="0">{{__('msg.no')}}</option>
-                                                                <option value="1">{{__('msg.yes')}}</option>
-                                                            </select>
-                                                            @error('active')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                        <label for="active">{{__('msg.active')}}</label>
+                                                        <div class="form-check form-switch text-center">
+                                                            <input class="form-check-input" wire:model="active"
+                                                                   type="checkbox" role="switch"
+                                                                   id="active">
                                                         </div>
                                                     </div>
-                                                    <div class="row mt-4" x-data="{ isSuper: @entangle('is_super') }" x-init="$watch('isSuper', value => { isSuper = value })">
+                                                    <div class="row mt-4"
+                                                         x-data="{ isSuper: @entangle('is_super').live }">
                                                         <div class="col-xxl-3 col-md-6">
-                                                            <div>
-                                                                <label for="iconInput" class="form-label">{{ __('msg.is_super') }}</label>
-                                                                <select class="form-control" wire:model="is_super"
-                                                                        @change="isSuper = $event.target.value"
-                                                                        id="is_super">
-                                                                    <option value="0">{{ __('msg.no') }}</option>
-                                                                    <option value="1">{{ __('msg.yes') }}</option>
-                                                                </select>
-                                                                @error('is_super')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
+                                                            <label for="is_super">{{__('msg.is_super')}}</label>
+                                                            <div class="form-check form-switch text-center">
+                                                                <input class="form-check-input" wire:model="is_super"
+                                                                       @change="isSuper = $event.target.checked ? 1 : 0"
+                                                                       type="checkbox" role="switch"
+                                                                       id="is_super">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xxl-3 col-md-6" x-show="isSuper != 1">
+
+                                                        <div class="col-xxl-3 col-md-6" x-show="isSuper == 0" x-cloak>
                                                             <div>
                                                                 <label for="iconInput"
                                                                        class="form-label">{{__('msg.permition_group')}}</label>
@@ -438,12 +421,14 @@
                                                                             });
                                                                         })" id="choices-select">
                                                                     <option value="">{{__('msg.select_permition_group')}}</option>
-                                                                    @foreach($permissions as $permission)
-                                                                        <option
-                                                                            value="{{ $permission->id}}">{{ $permission->name }}</option>
-                                                                    @endforeach
+                                                                    @if($permissions && count($permissions) > 0)
+                                                                        @foreach($permissions as $permission)
+                                                                            <option
+                                                                                value="{{ $permission->id}}">{{ $permission->name }}</option>
+                                                                        @endforeach
+                                                                    @endif
                                                                 </select>
-                                                        </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -484,7 +469,9 @@
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <label for="iconInput" class="form-label">{{__('msg.search')}}</label>
-                                        <input wire:model="search" type="text" class="form-control"
+                                        <input x-data
+                                               x-on:input.debounce.500ms="$wire.set('search', $event.target.value)"
+                                               type="text" class="form-control"
                                                placeholder="{{__('msg.search')}}">
                                     </div>
                                 </div>
@@ -627,76 +614,30 @@
 </div>
 @script
 <script>
-    $wire.on('close', () => {
-        $('#addItemModal').modal('hide');
-        $('#editItemModal').modal('hide');
-        $('#deleteConfrmationModal').modal('hide');
-        $('#restoreConfrmationModal').modal('hide');
-        $('#forceDeleteConfrmationModal').modal('hide');
+    $wire.on('close', (data) => {
+        var itemModal = document.getElementById(data.modalId)
+        var modal = bootstrap.Modal.getInstance(itemModal)
+        modal.hide();
 
-        toastr.options = {
-            "closeButton": true,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-        toastr.success('تمت العملية بنجاح');
+        Toastify({
+            text: data.message,
+            position: "center",
+            close: true,
+        }).showToast();
     });
-    $wire.on('create-item', () => {
-        $('#addItemModal').modal('show');
+    $wire.on('open-modal', (data) => {
+        var modal = new bootstrap.Modal(document.getElementById(data.modalId)).show();
     });
-    $wire.on('edit-item', () => {
-        $('#editItemModal').modal('show');
-    });
-    $wire.on('delete-confirmation-item', () => {
-        $('#deleteConfrmationModal').modal('show');
-    });
-    $wire.on('restore-confirmation-item', () => {
-        $('#restoreConfrmationModal').modal('show');
-    });
-    $wire.on('force-delete-confirmation-item', () => {
-        $('#forceDeleteConfrmationModal').modal('show');
-    });
-    $wire.on('catch-error', (message) => {
-        toastr.options = {
-            "closeButton": true,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-        toastr.error(message);
+    $wire.on('catch-error', (data) => {
+        Toastify({
+            text: data.message,
+            position: "center",
+            close: true,
+            style: {
+                background: "#ff2d2d",
+            }
+        }).showToast();
     });
 
 </script>
-
 @endscript
-@push('styles')
-    <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{asset('assets/css/choices.min.css')}}"/>
-@endpush
-@push('scripts')
-    <script src="{{asset('assets/js/toastr.min.js')}}"></script>
-    <script src="{{asset('assets/js/choices.min.js')}}"></script>
-@endpush

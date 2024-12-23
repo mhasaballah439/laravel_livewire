@@ -29,7 +29,6 @@
                                  x-init="$wire.on('loginError', message => { errorMessage = message; setTimeout(() => errorMessage = '', 5000) })">
 
                             <form wire:submit.prevent="login">
-
                                 <div class="mb-3">
                                     <label for="username" class="form-label">{{__('msg.Username')}}</label>
                                     <input type="text" class="form-control" id="username" wire:model="username" placeholder="{{__('msg.Enter_username')}}">

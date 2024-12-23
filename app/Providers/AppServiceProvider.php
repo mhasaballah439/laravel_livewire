@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Stancl\Tenancy\Facades\Tenancy;
+use Stancl\Tenancy\Events\TenantCreated;
 
 class AppServiceProvider extends ServiceProvider
 {

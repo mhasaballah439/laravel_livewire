@@ -85,7 +85,7 @@ return [
     'Messages' => 'Messages',
     'Taskboard' => 'Taskboard',
     'Settings' => 'Settings',
-    '' => '',
+    'operation_completed' => 'تمت العملية بنجاح',
     '' => '',
     '' => '',
     '' => '',
